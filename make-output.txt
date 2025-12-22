@@ -1,0 +1,8 @@
+Compiled src/autons.cpp [32;01m[OK][0m
+Compiled src/main.cpp [32;01m[OK][0m
+Adding timestamp [32;01m[OK][0m
+Linking hot project with ./bin/cold.package.elf and EZ-Template,libc,liblvgl,libm,libpros,okapilib [32;01m[OK][0m
+Section sizes:
+   text	   data	    bss	  total	    hex	filename
+   8049	      8	48254880	48262937	2e06f19	bin/hot.package.elf
+Creating bin/hot.package.bin for VEX EDR V5 [32;01m[DONE][0m
