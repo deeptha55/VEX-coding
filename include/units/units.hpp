@@ -37,6 +37,9 @@ struct QLength {
 inline QLength operator"" _in(long double v) noexcept { return QLength(static_cast<double>(v) * 0.0254); }
 inline QLength operator"" _in(unsigned long long v) noexcept { return QLength(static_cast<double>(v) * 0.0254); }
 
+// Unary minus for QLength so expressions like -72_in work
+inline QLength operator-(const QLength &q) noexcept { return QLength(-q.meters); }
+
 // --- QTime (time, stored in seconds) ---
 struct QTime {
 	double seconds{0.0};
