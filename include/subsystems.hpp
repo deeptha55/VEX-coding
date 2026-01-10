@@ -3,9 +3,10 @@
 #include "EZ-Template/api.hpp"
 #include "api.h"
 
-extern Drive chassis;
+extern ez::Drive chassis;
 
-// Your motors, sensors, etc. should go here.  Below are examples
+// Motor declarations
+extern pros::Motor Intake;
+extern pros::Motor Outtake;
 
-// inline pros::Motor intake(1);
-// inline pros::adi::DigitalIn limit_switch('A');
+// Your other motors, sensors, etc. should go here below

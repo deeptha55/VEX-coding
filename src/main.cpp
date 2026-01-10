@@ -61,8 +61,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-    Auton("Simple Forward", pid_path),
-      //Auton("Simple Boomerang", my_boomerang),
+    //Auton("Simple Forward", pid_path),
+      Auton("pure pursuit auton path", my_purepursuit),
       //{"Turn\n\nTurn 3 times.", turn_example},
       //{"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
       //{"Drive and Turn\n\nSlow down during drive", wait_until_change_speed},

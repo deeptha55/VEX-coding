@@ -17,4 +17,4 @@ void odom_boomerang_example();
 void odom_boomerang_injected_pure_pursuit_example();
 void measure_offsets();
 void pid_path();
-void my_boomerang();
+void my_purepursuit();

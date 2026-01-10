@@ -378,12 +378,61 @@ void pid_path(){
   chassis.pid_wait();
 }
 
-void my_boomerang(){
-  chassis.pid_odom_set({{0_in, 24_in, 45_deg}, fwd, DRIVE_SPEED},
-                       true);
-  chassis.pid_wait();
-
-  chassis.pid_odom_set({{0_in, 0_in, 0_deg}, rev, DRIVE_SPEED},
-                       true);
-  chassis.pid_wait();
+// change once pistons are known
+// also change motor declarations in subsystems 
+void my_purepursuit() {
+    chassis.odom_xyt_set(0_in, 0_in, 0_deg);
+    
+    // Step 1: Score preload
+    Outtake.move(80);
+    pros::delay(1000);
+    Outtake.move(0);
+    
+    // Step 2-3: Drive to match loader (face towards it) and back to own goal (face towards goal)
+    chassis.pid_odom_set({
+        {{24_in, 12_in, 0_deg}, fwd, DRIVE_SPEED},    // Match loader - face 0° (towards loader)
+        {{0_in, -6_in, 90_deg}, fwd, DRIVE_SPEED}     // Own goal - face 90° (towards goal)
+    }, true);
+    
+    chassis.pid_wait_until_index(0);  // Wait until reaching loader
+    Intake.move(100);
+    pros::delay(1500);
+    Intake.move(0);
+    
+    chassis.pid_wait();  // Wait to reach own goal
+    Outtake.move(100);
+    pros::delay(1200);
+    Outtake.move(0);
+    
+    // Step 4-5: Drive to middle (face forward), collect, then to center goal (face towards goal)
+    Intake.move(100);
+    chassis.pid_odom_set({
+        {{0_in, 36_in, 90_deg}, fwd, DRIVE_SPEED},    // Middle - face 90° (forward up field)
+        {{-12_in, 48_in, 45_deg}, fwd, DRIVE_SPEED}   // Center goal - face 45° (towards goal)
+    }, true);
+    
+    chassis.pid_wait_until_index(0);  // Wait until middle point
+    pros::delay(2500);  // Collection time
+    
+    chassis.pid_wait();  // Wait to reach center goal
+    Intake.move(0);
+    Outtake.move(100);
+    pros::delay(1500);
+    Outtake.move(0);
+    
+    // Step 6-7: Drive to opponent loader (face towards it) then opponent goal (face towards goal)
+    Intake.move(100);
+    chassis.pid_odom_set({
+        {{24_in, 60_in, 0_deg}, fwd, DRIVE_SPEED},    // Opponent loader - face 0° (towards loader)
+        {{0_in, 72_in, 90_deg}, fwd, DRIVE_SPEED}     // Opponent goal - face 90° (towards goal)
+    }, true);
+    
+    chassis.pid_wait_until_index(0);  // Wait until opponent loader
+    pros::delay(3000);  // Collection time
+    Intake.move(0);
+    
+    chassis.pid_wait();  // Wait to reach opponent goal
+    Outtake.move(100);
+    pros::delay(2000);
+    Outtake.move(0);
 }
